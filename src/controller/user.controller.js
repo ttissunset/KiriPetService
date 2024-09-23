@@ -39,7 +39,7 @@ class UserController {
         msg: "用户登录成功",
         result: {
           // 携带token jwt.sign(payload,secret,{ expiresIn: time }) --> payload 是要携带的参数对象，secret:是加密私钥，expiresIn是有效时间
-          token: jwt.sign(res, JWT_SECRET, { expiresIn: "1d" }),
+          token: jwt.sign(res, JWT_SECRET, { expiresIn: "10d" }),
         },
       };
     } catch (err) {

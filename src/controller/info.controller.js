@@ -74,7 +74,7 @@ class InfosController {
     }
   }
 
-    // 硬删除信息的处理函数
+    // 删除信息的处理函数
     async remove(ctx) {
         await removeInfos(ctx.params.id)
     

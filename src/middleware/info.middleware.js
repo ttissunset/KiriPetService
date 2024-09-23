@@ -11,9 +11,10 @@ const infoValidate = async (ctx, next) => {
     // koa-parameter 中间件提供的方法，用于对数据格式的校验
     ctx.verifyParams({
       id: { type: "string", required: true },
-      petName: { type: "number", required: true },
-      imageUrl: { type: "number", required: true },
+      petName: { type: "string", required: true },
+      imageUrl: { type: "string", required: true },
       miniDes: { type: "string", required: true },
+      description: { type: "string", required: true },
     });
   } catch (err) {
     console.error(err);
