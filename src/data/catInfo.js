@@ -361,3 +361,5 @@ const catInfos = [
       "法国猫拥有优雅的短毛和友好的性格。它们适 合家庭生活，对人类非常亲密。",
   },
 ];
+
+module.exports = catInfos;

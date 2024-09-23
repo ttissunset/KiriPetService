@@ -9,8 +9,8 @@ const {
 const {
   fileUploadError,
   unSupportedFileType,
-  createInfosError,
-  invalidinfosId,
+  createInfoError,
+  invalidInfoId,
 } = require("../constant/error.type");
 
 class InfosController {
@@ -52,7 +52,7 @@ class InfosController {
       };
     } catch (err) {
       console.error(err);
-      return ctx.app.emit("err", createInfosError, ctx);
+      return ctx.app.emit("err", createInfoError, ctx);
     }
   }
 
@@ -67,7 +67,7 @@ class InfosController {
           result: "",
         };
       } else {
-        return ctx.app.emit("error", invalidinfosId, ctx);
+        return ctx.app.emit("error", invalidInfoId, ctx);
       }
     } catch (err) {
       console.error(err);
