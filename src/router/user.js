@@ -1,20 +1,31 @@
-const Router = require('koa-router')
+const Router = require("koa-router");
 
 const {
-  userValidate,
   verificationCode,
   verifyUser,
   cryptPassword,
   verifyCode,
-} = require('../middleware/user.middleware')
+  verifyLogin,
+  registerValidate,
+  loginValidate,
+} = require("../middleware/user.middleware");
 
-const { register } = require('../controller/user.controller')
+const { register, login } = require("../controller/user.controller");
 
-const router = new Router({ prefix: '/users' })
+const router = new Router({ prefix: "/users" });
 
 // 发送验证码
-router.post('/send_verification_code', verificationCode)
+router.post("/send_verification_code", verificationCode);
 // 注册接口
-router.post('/register', userValidate, verifyUser,verifyCode, cryptPassword, register)
+router.post(
+  "/register",
+  registerValidate,
+  verifyUser,
+  verifyCode,
+  cryptPassword,
+  register
+);
+// 登录接口
+router.post("/login", loginValidate, verifyLogin, login);
 
-module.exports = router
+module.exports = router;

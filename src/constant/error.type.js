@@ -24,6 +24,21 @@ module.exports = {
     message: "用户注册失败！！",
     result: "",
   },
+  userDoesNotExist: {
+    code: "10006",
+    message: "用户不存在！！",
+    result: "",
+  },
+  userLoginError: {
+    code: "10007",
+    message: "用户登录失败！！",
+    result: "",
+  },
+  invalidPassword: {
+    code: "10008",
+    message: "用户密码错误！！",
+    result: "",
+  },
   fileUploadError: {
     code: "10201",
     message: "商品图片上传失败！！",
@@ -35,13 +50,13 @@ module.exports = {
     result: "",
   },
   createInfosError: {
-    code: '10203',
-    message: '上传信息失败！！',
-    result: '',
+    code: "10203",
+    message: "上传信息失败！！",
+    result: "",
   },
-  invalidgoodsId:{
-    code: '10204',
-    message: '无效的宠物信息ID！！',
-    result: '',
+  invalidgoodsId: {
+    code: "10204",
+    message: "无效的宠物信息ID！！",
+    result: "",
   },
 };

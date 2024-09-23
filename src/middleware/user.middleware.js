@@ -9,10 +9,13 @@ const {
   userRegisterError,
   userAlreadyExisted,
   emailRegaxError,
+  userDoesNotExist,
+  invalidPassword,
+  userLoginError
 } = require("../constant/error.type");
 
 // 数据校验 --> 判断密码或用户名是否为空
-const userValidate = async (ctx, next) => {
+const registerValidate = async (ctx, next) => {
   // 从body中解构处需要用到的数据
   const { user_name, password, email } = ctx.request.body;
   // 邮箱校验正则规则
@@ -31,6 +34,17 @@ const userValidate = async (ctx, next) => {
   }
   await next();
 };
+
+const loginValidate = async (ctx, next) => {
+  // 从body中解构处需要用到的数据
+  const { user_name, password } = ctx.request.body
+  if (!user_name || !password) {
+    console.error('用户名或密码为空！！', ctx.request.body)
+    ctx.app.emit('error', userFormatError, ctx)
+    return
+  }
+  await next()
+}
 
 // 检测数据合理性 --> 判断数据库中是否有该用户
 const verifyUser = async (ctx, next) => {
@@ -165,10 +179,38 @@ const verificationCode = async (ctx, next) => {
   }
 };
 
+// 检测登录用户名和密码是是否正确
+const verifyLogin = async (ctx, next) => {
+  const { user_name, password } = ctx.request.body;
+  // 1.判断用户是否存在
+  try {
+    const res = await getUserinfo({ user_name });
+    // 如果查询不到该用户信息，抛出错误
+    if (!res) {
+      console.error("用户名不存在", userDoesNotExist);
+      ctx.app.emit("error", userDoesNotExist, ctx);
+      return;
+    }
+
+    // 2.判断密码是否匹配
+    if (!bcrypt.compareSync(password, res.password)) {
+      ctx.app.emit("error", invalidPassword, ctx);
+      return;
+    }
+  } catch (error) {
+    console.error("获取用户信息失败", error);
+    return ctx.app.emit("error", userLoginError, ctx);
+  }
+
+  await next();
+};
+
 module.exports = {
-  userValidate,
+  registerValidate,
+  loginValidate,
   verificationCode,
   verifyUser,
   cryptPassword,
   verifyCode,
+  verifyLogin,
 };

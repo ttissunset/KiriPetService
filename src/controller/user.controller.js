@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken')
 const { userRegisterError } = require("../constant/error.type");
 const { createUser, getUserinfo } = require("../service/user.service");
 const { JWT_SECRET } = require('../config/congfig')
