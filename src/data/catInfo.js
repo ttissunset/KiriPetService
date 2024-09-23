@@ -2,7 +2,7 @@ const catInfos = [
   {
     id: 1,
     imageUrl: "src/assets/image/cat-1.jpg",
-    petName: "布偶猫",
+    imageUrl: "布偶猫",
     miniDes: "“温顺如同布偶”",
     description: "",
   },

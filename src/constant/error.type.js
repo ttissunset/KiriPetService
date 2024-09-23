@@ -24,4 +24,24 @@ module.exports = {
     message: "用户注册失败！！",
     result: "",
   },
+  fileUploadError: {
+    code: "10201",
+    message: "商品图片上传失败！！",
+    result: "",
+  },
+  unSupportedFileType: {
+    code: "10202",
+    message: "不支持的文件类型！！",
+    result: "",
+  },
+  createInfosError: {
+    code: '10203',
+    message: '上传信息失败！！',
+    result: '',
+  },
+  invalidgoodsId:{
+    code: '10204',
+    message: '无效的宠物信息ID！！',
+    result: '',
+  },
 };

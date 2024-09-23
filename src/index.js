@@ -7,6 +7,7 @@ const errHandler = require("./error.handle");
 const { koaBody } = require("koa-body");
 const koaStaic = require("koa-static");
 const parameter = require("koa-parameter");
+const bodyParser = require("koa-bodyparser");
 
 // 创建koa实例
 const app = new Koa();
@@ -15,7 +16,6 @@ const app = new Koa();
 const { APP_PORT } = require("../src/config/congfig");
 
 const router = require("../src/router/index");
-
 
 // 使用koda-body中间件对body参数进行处理
 app.use(
@@ -36,6 +36,7 @@ app.use(
 // 使用 koa-static 中间件将upload文件夹配置为静态资源
 app.use(koaStaic(path.join(__dirname, "../upload")));
 app.use(parameter(app));
+app.use(bodyParser());
 
 // 将路由添加到Koa应用
 app.use(router.routes()).use(router.allowedMethods());
