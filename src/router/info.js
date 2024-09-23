@@ -1,14 +1,19 @@
 const Router = require("koa-router");
 
-const { create } = require("../controller/info.controller");
+const { create, update } = require("../controller/info.controller");
 
 const {
   infoValidate,
   verifyPetInfo,
 } = require("../middleware/info.middleware");
 
+const { auth, hasAdminPermission } = require("../middleware/auth.middleware");
+
 const router = new Router({ prefix: "/infos" });
 
-router.post("/create", infoValidate, verifyPetInfo, create);
+// 只有已经登录的管理员用户才有资格管理信息
+router.post("/create", auth, infoValidate, verifyPetInfo, create);
+
+router.put("/:id", auth, hasAdminPermission, infoValidate, update);
 
 module.exports = router;

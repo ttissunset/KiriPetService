@@ -7,12 +7,18 @@ const {
 } = require("../constant/error.type");
 
 const infoValidate = async (ctx, next) => {
-  // 从body中解构处需要用到的数据
-  const { id, petName, imageUrl } = ctx.request.body;
-  if (!id || !petName || !imageUrl) {
-    console.error("宠物id/宠物名/宠物图片为空", ctx.request.body);
-    ctx.app.emit("error", petFormatError, ctx);
-    return;
+  try {
+    // koa-parameter 中间件提供的方法，用于对数据格式的校验
+    ctx.verifyParams({
+      id: { type: "string", required: true },
+      petName: { type: "number", required: true },
+      imageUrl: { type: "number", required: true },
+      miniDes: { type: "string", required: true },
+    });
+  } catch (err) {
+    console.error(err);
+    petFormatError.result = err.message;
+    return ctx.app.emit("error", petFormatError, ctx);
   }
   await next();
 };
