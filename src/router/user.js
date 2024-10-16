@@ -12,6 +12,10 @@ const {
 
 const { register, login } = require("../controller/user.controller");
 
+const { redirect, oauth } = require("../middleware/oauth.middleware");
+
+const { openaiMiddleware } = require("../middleware/chat.middleware");
+
 const router = new Router({ prefix: "/users" });
 
 // 发送验证码
@@ -27,5 +31,10 @@ router.post(
 );
 // 登录接口
 router.post("/login", loginValidate, verifyLogin, login);
+
+//! github Oauth认证--暂未完全实现
+router.get("/github/callback", redirect, oauth);
+
+router.post("/chat", openaiMiddleware);
 
 module.exports = router;
