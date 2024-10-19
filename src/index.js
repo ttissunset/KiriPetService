@@ -1,6 +1,8 @@
 const path = require("path");
 const Koa = require("koa");
 
+const cors = require("koa2-cors");
+
 const errHandler = require("./error.handle");
 
 // 解析路由参数的中间件
@@ -40,6 +42,24 @@ app.use(bodyParser());
 
 // 将路由添加到Koa应用
 app.use(router.routes()).use(router.allowedMethods());
+
+app.use(
+  cors({
+    origin: "http://localhost:5173", // 允许的前端来源
+    credentials: true, // 如果需要支持携带凭证（如 Cookie），需要设置为 true
+    allowMethods: ["GET", "POST", "PUT", "DELETE"], // 允许的请求方法
+    allowHeaders: ["Content-Type", "Authorization", "Accept"], // 允许的请求头
+  })
+);
+
+// 处理 OPTIONS 预检请求
+app.use(async (ctx, next) => {
+  if (ctx.method === "OPTIONS") {
+    ctx.status = 204; // No Content
+  } else {
+    await next();
+  }
+});
 
 // 统一的错误处理
 app.on("error", errHandler);
