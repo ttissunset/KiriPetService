@@ -40,26 +40,18 @@ app.use(koaStaic(path.join(__dirname, "../upload")));
 app.use(parameter(app));
 app.use(bodyParser());
 
-// 将路由添加到Koa应用
-app.use(router.routes()).use(router.allowedMethods());
-
+// 配置 CORS 中间件
 app.use(
   cors({
-    origin: "http://localhost:5173", // 允许的前端来源
-    credentials: true, // 如果需要支持携带凭证（如 Cookie），需要设置为 true
-    allowMethods: ["GET", "POST", "PUT", "DELETE"], // 允许的请求方法
-    allowHeaders: ["Content-Type", "Authorization", "Accept"], // 允许的请求头
+    origin: "http://localhost:5173", // 仅允许来自 http://localhost:5173 的请求
+    credentials: true, // 是否允许发送 Cookie
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // 设置所允许的 HTTP 请求方法
+    allowHeaders: ["Content-Type", "Authorization", "Accept"], // 设置服务器支持的所有头信息字段
   })
 );
 
-// 处理 OPTIONS 预检请求
-app.use(async (ctx, next) => {
-  if (ctx.method === "OPTIONS") {
-    ctx.status = 204; // No Content
-  } else {
-    await next();
-  }
-});
+// 将路由添加到Koa应用
+app.use(router.routes()).use(router.allowedMethods());
 
 // 统一的错误处理
 app.on("error", errHandler);

@@ -12,7 +12,7 @@ async function openaiMiddleware(ctx, next) {
     const completion = await openai.chat.completions.create({
       model: "qwen-max", // 模型列表：https://help.aliyun.com/zh/model-studio/getting-started/models
       messages: [
-        { role: "system", content: "你是kiripet的智能助手，名叫kiri" },
+        { role: "system", content: "你是kiripet的智能助手，名叫鬼塚夏美，你也可以称呼我kiri" },
         { role: "user", content: content },
       ],
     });

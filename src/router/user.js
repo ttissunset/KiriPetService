@@ -29,6 +29,7 @@ router.post(
   cryptPassword,
   register
 );
+
 // 登录接口
 router.post("/login", loginValidate, verifyLogin, login);
 

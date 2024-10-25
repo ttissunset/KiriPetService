@@ -11,7 +11,7 @@ const {
   emailRegaxError,
   userDoesNotExist,
   invalidPassword,
-  userLoginError
+  userLoginError,
 } = require("../constant/error.type");
 
 // 数据校验 --> 判断密码或用户名是否为空
@@ -37,14 +37,14 @@ const registerValidate = async (ctx, next) => {
 
 const loginValidate = async (ctx, next) => {
   // 从body中解构处需要用到的数据
-  const { user_name, password } = ctx.request.body
+  const { user_name, password } = ctx.request.body;
   if (!user_name || !password) {
-    console.error('用户名或密码为空！！', ctx.request.body)
-    ctx.app.emit('error', userFormatError, ctx)
-    return
+    console.error("用户名或密码为空！！", ctx.request.body);
+    ctx.app.emit("error", userFormatError, ctx);
+    return;
   }
-  await next()
-}
+  await next();
+};
 
 // 检测数据合理性 --> 判断数据库中是否有该用户
 const verifyUser = async (ctx, next) => {
@@ -171,7 +171,7 @@ const verificationCode = async (ctx, next) => {
     await transporter.sendMail(mailOptions);
     // 将本次验证码挂载
     global.sharedData.verificationCode = verificationCode.toString();
-    console.log(global.sharedData.verificationCode);
+    console.log("验证码是:", global.sharedData.verificationCode);
     ctx.body = { success: true, message: "验证码已发送" };
   } catch (error) {
     console.error(error);

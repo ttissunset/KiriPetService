@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
 const { userRegisterError } = require("../constant/error.type");
 const { createUser, getUserinfo } = require("../service/user.service");
-const { JWT_SECRET } = require('../config/congfig')
+const { JWT_SECRET } = require("../config/congfig");
 
 class UserController {
   // 注册接口
@@ -38,6 +38,7 @@ class UserController {
         code: 0,
         msg: "用户登录成功",
         result: {
+          user_name: user_name,
           // 携带token jwt.sign(payload,secret,{ expiresIn: time }) --> payload 是要携带的参数对象，secret:是加密私钥，expiresIn是有效时间
           token: jwt.sign(res, JWT_SECRET, { expiresIn: "10d" }),
         },
