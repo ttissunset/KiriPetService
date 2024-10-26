@@ -16,10 +16,14 @@ const { redirect, oauth } = require("../middleware/oauth.middleware");
 
 const { openaiMiddleware } = require("../middleware/chat.middleware");
 
+const { getPetInfo } = require("../service/info.service");
+
 const router = new Router({ prefix: "/users" });
 
 // 发送验证码
 router.post("/send_verification_code", verificationCode);
+
+router.get("/", getPetInfo);
 // 注册接口
 router.post(
   "/register",
