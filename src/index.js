@@ -61,6 +61,7 @@ global.sharedData = {
   verificationCode: null,
 };
 
-app.listen(APP_PORT, () => {
+app.listen(APP_PORT, (ctx) => {
+  ctx.body = "Welcome!";
   console.log(`Server is running on port ${APP_PORT}`);
 });

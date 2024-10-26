@@ -1,5 +1,8 @@
 KiriPet 后台服务
 
+## 项目地址
+http://api.kirii.site
+
 ## 项目部署
 在宝塔终端面板通过`ssh-keygen`生成密钥
 
