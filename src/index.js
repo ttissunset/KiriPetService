@@ -43,7 +43,7 @@ app.use(bodyParser());
 // 配置 CORS 中间件
 app.use(
   cors({
-    origin: "http://localhost:5173", // 仅允许来自 http://localhost:5173 的请求
+    origin: "*", // 仅允许来自 http://localhost:5173 的请求
     credentials: true, // 是否允许发送 Cookie
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // 设置所允许的 HTTP 请求方法
     allowHeaders: ["Content-Type", "Authorization", "Accept"], // 设置服务器支持的所有头信息字段
@@ -61,7 +61,6 @@ global.sharedData = {
   verificationCode: null,
 };
 
-app.listen(APP_PORT, (ctx) => {
-  ctx.body = "Welcome!";
+app.listen(APP_PORT, () => {
   console.log(`Server is running on port ${APP_PORT}`);
 });

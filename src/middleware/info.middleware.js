@@ -42,7 +42,18 @@ const verifyPetInfo = async (ctx, next) => {
   await next();
 };
 
+const moren = (ctx) => {
+  ctx.body = {
+    code: 0,
+    msg: "test成功",
+    result: {
+      result: "success",
+    },
+  };
+};
+
 module.exports = {
   infoValidate,
   verifyPetInfo,
+  moren
 };
