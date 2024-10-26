@@ -1,5 +1,10 @@
 KiriPet 后台服务
 
+## 项目部署
+在宝塔终端面板通过`ssh-keygen`生成密钥
+
+再通过`cat ~/.ssh/id_rsa.pub`将秘钥复制到对应项目的Deploy keys中
+
 ## 启动项目
 
 在 `package.json` 中修改
