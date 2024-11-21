@@ -12,6 +12,7 @@ const {
   createInfoError,
   invalidInfoId,
 } = require("../constant/error.type");
+const logger = require("../config/logger");
 
 class InfosController {
   // 上传图片的处理函数
@@ -45,12 +46,17 @@ class InfosController {
     // 直接调用service的createInfos方法
     try {
       const res = await createInfos(ctx.request.body);
+
+      logger.info("发布宠物信息成功");
+
       ctx.body = {
         code: 0,
         message: "发布成功！！",
         result: res,
       };
     } catch (err) {
+      logger.error("发布宠物信息失败：" + err);
+
       console.error(err);
       return ctx.app.emit("err", createInfoError, ctx);
     }
@@ -61,6 +67,7 @@ class InfosController {
     try {
       const res = await upadetaInfos(ctx.params.id, ctx.request.body);
       if (res) {
+        logger.info("更新宠物信息成功:" + ctx.params.id);
         ctx.body = {
           code: 0,
           message: "修改宠物信息成功！！",
@@ -70,20 +77,21 @@ class InfosController {
         return ctx.app.emit("error", invalidInfoId, ctx);
       }
     } catch (err) {
+      logger.error("修改宠物信息失败：" + err);
       console.error(err);
     }
   }
 
-    // 删除信息的处理函数
-    async remove(ctx) {
-        await removeInfos(ctx.params.id)
-    
-        ctx.body = {
-          code: 0,
-          message: '删除成功！！',
-          result: '',
-        }
-      }
+  // 删除信息的处理函数
+  async remove(ctx) {
+    await removeInfos(ctx.params.id);
+    logger.info("删除宠物信息成功" + ctx.params.id);
+    ctx.body = {
+      code: 0,
+      message: "删除成功！！",
+      result: "",
+    };
+  }
 
   // 获取所有商品的处理函数
   async findAll(ctx) {

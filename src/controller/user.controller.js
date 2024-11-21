@@ -1,7 +1,14 @@
 const jwt = require("jsonwebtoken");
+const path = require("path");
 const { userRegisterError } = require("../constant/error.type");
 const { createUser, getUserinfo } = require("../service/user.service");
-const { JWT_SECRET } = require("../config/congfig");
+const { JWT_SECRET } = require("../config/config");
+const logger = require("../config/logger");
+
+const {
+  fileUploadError,
+  unSupportedFileType,
+} = require("../constant/error.type");
 
 class UserController {
   // 注册接口
@@ -12,6 +19,9 @@ class UserController {
     try {
       // 操作数据库
       const res = createUser(user_name, password, email);
+
+      logger.info("注册用户成功:" + user_name);
+
       // 向客户端返回结果
       ctx.body = {
         code: 0,
@@ -22,6 +32,8 @@ class UserController {
         },
       };
     } catch (err) {
+      logger.error("注册失败:", err);
+
       userRegisterError.result = err.message;
       ctx.app.emit("error", userRegisterError, ctx);
     }
@@ -33,6 +45,9 @@ class UserController {
       const { user_name } = ctx.request.body;
       // 从数据库中解构出数据，并剔除password
       const { password, ...res } = await getUserinfo({ user_name });
+
+      logger.info("登陆成功:" + user_name);
+
       // 向客户端返回内容
       ctx.body = {
         code: 0,
@@ -44,7 +59,36 @@ class UserController {
         },
       };
     } catch (err) {
+      logger.error("登录失败：" + err);
+
       console.error("用户登录失败", err);
+    }
+  }
+
+  // 上传图片的处理函数
+  async uploadImg(ctx, next) {
+    // 从  ctx.request.files 中解构出 名称为 file 的文件
+    const { file } = ctx.request.files;
+    console.log(ctx.request.files);
+
+    // 指定文件上传类型为jpg/png
+    const fileTypes = ["image/jpeg", "image/png"];
+    // 判断是否有名称为 file 的文件
+    if (file) {
+      if (!fileTypes.includes(file.mimetype)) {
+        // 如果文件类型不属于我们指定的文件类型，则抛出错误
+        return ctx.app.emit("error", unSupportedFileType, ctx);
+      }
+      ctx.body = {
+        code: 0,
+        message: "文件上传成功！！",
+        result: {
+          img: path.basename(file.filepath),
+        },
+      };
+    } else {
+      // 如果没有则抛出错误
+      return ctx.app.emit("error", fileUploadError, ctx);
     }
   }
 }

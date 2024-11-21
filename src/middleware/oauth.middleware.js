@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const GITHUB_CLIENT_ID = "Ov23liux0akjmdkQezp9";
 const GITHUB_CLIENT_SECRET = "249db958cd48b6d5e9f0b5de640db6bf2e6649da";
-const { JWT_SECRET } = require("../config/congfig");
+const { JWT_SECRET } = require("../config/config");
 
 const redirect = (ctx) => {
   const redirect_uri = "http://localhost:3000/users/github/callback";

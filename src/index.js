@@ -1,7 +1,7 @@
 const path = require("path");
 const Koa = require("koa");
 
-const cors = require("koa2-cors");
+const cors = require("@koa/cors");
 
 const errHandler = require("./error.handle");
 
@@ -15,7 +15,7 @@ const bodyParser = require("koa-bodyparser");
 const app = new Koa();
 
 // 从环境变量中获取端口
-const { APP_PORT } = require("../src/config/congfig");
+const { APP_PORT } = require("./config/config");
 
 const router = require("../src/router/index");
 
@@ -27,7 +27,8 @@ app.use(
     formidable: {
       // 文件要保存的路径
       //! 在配置选项option中，应该避免使用相对路径 --> 因为在option中，相对的是 process.cwd() 而非当前文件
-      uploadDir: path.join(__dirname, "../upload"),
+      uploadDir: path.join(__dirname, "./upload"),
+      maxFileSize: 200 * 1024 * 1024, // 限制文件大小为 200MB
       // 保留文件后缀名
       keepExtensions: true,
     },
@@ -35,18 +36,20 @@ app.use(
     parsedMethods: ["POST", "PUT", "PATCH", "DELETE"],
   })
 );
+
 // 使用 koa-static 中间件将upload文件夹配置为静态资源
-app.use(koaStaic(path.join(__dirname, "../upload")));
+app.use(koaStaic(path.join(__dirname, "./upload")));
 app.use(parameter(app));
 app.use(bodyParser());
 
 // 配置 CORS 中间件
+// 跨域处理
 app.use(
   cors({
-    origin: "*", // 仅允许来自 http://localhost:5173 的请求
-    credentials: true, // 是否允许发送 Cookie
-    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // 设置所允许的 HTTP 请求方法
-    allowHeaders: ["Content-Type", "Authorization", "Accept"], // 设置服务器支持的所有头信息字段
+    origin: "*", // 允许所有来源
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowHeaders: ["Content-Type", "Authorization", "Accept"],
+    credentials: true,
   })
 );
 

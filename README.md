@@ -1,12 +1,14 @@
 KiriPet 后台服务
 
 ## 项目地址
+
 http://api.kirii.site
 
 ## 项目部署
+
 在宝塔终端面板通过`ssh-keygen`生成密钥
 
-再通过`cat ~/.ssh/id_rsa.pub`将秘钥复制到对应项目的Deploy keys中
+再通过`cat ~/.ssh/id_rsa.pub`将秘钥复制到对应项目的 Deploy keys 中
 
 ## 启动项目
 
@@ -15,8 +17,7 @@ http://api.kirii.site
 ```shell
 "scripts": {
     "dev": "nodemon ./src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    }
+    "test": "echo \"Error: no test specified\" && exit 1",}
 ```
 
 ```shell
