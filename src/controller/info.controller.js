@@ -35,6 +35,7 @@ class InfosController {
           goods_img: Path.basename(file.filepath),
         },
       };
+      logger.info("宠物图片上传成功")
     } else {
       // 如果没有则抛出错误
       return ctx.app.emit("error", fileUploadError, ctx);

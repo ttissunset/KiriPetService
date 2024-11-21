@@ -18,31 +18,6 @@ const seq = new Sequelize(MYSQL_DB, MYSQL_USER, MYSQL_PWD, {
   logging: (msg) => logger.debug(msg),
 });
 
-// 初始化数据库
-// const initChatDatabase = async () => {
-//   try {
-//     // 先创建一个不指定数据库的连接
-//     const tempSequelize = new Sequelize(
-//       "mysql://root:qqr25741@101.126.150.33:3306"
-//     );
-
-//     // 创建数据库（如果不存在）
-//     await tempSequelize.query("CREATE DATABASE IF NOT EXISTS chat;");
-
-//     // 关闭临时连接
-//     await tempSequelize.close();
-
-//     // 测试主连接
-//     await seq.authenticate();
-//     logger.info("数据库连接成功");
-
-//     return true;
-//   } catch (error) {
-//     logger.error("数据库初始化失败:", error);
-//     throw error;
-//   }
-// };
-
 // 测试mysql是否链接成功
 // seq
 //   .authenticate()

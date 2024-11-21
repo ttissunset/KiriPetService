@@ -5,9 +5,11 @@ const MessageService = require("../service/chat.service");
 const path = require("path");
 const crypto = require("crypto");
 
+const { OPENAI_KEY } = require("../config/config");
+
 const openai = new OpenAI({
   // 若没有配置环境变量，请用百炼API Key将下行替换为：apiKey: "sk-xxx",千问大模型
-  apiKey: "sk-0c301be023514633ad8571be75cafbad",
+  apiKey: OPENAI_KEY,
   baseURL: "https://dashscope.aliyuncs.com/compatible-mode/v1",
 });
 
@@ -35,13 +37,13 @@ async function openaiMiddleware(ctx, next) {
       },
     };
     // 输出结果到控制台
-    console.log(JSON.stringify(completion.choices[0].message.content));
+    logger.info("回复成功" + completion.choices[0].message.content);
 
     // 继续执行下一个中间件
     await next();
   } catch (error) {
     // 错误处理
-    console.error("Error with OpenAI API:", error);
+    logger.error(error);
     ctx.status = 500;
     ctx.body = { error: "Failed to communicate with OpenAI API" };
   }

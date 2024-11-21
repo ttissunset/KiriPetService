@@ -1,12 +1,13 @@
 const OSS = require("ali-oss");
 const logger = require("../config/logger");
+const { ACCESSKEY_ID, ACCESSKEY_SECRET, BUCKET } = require("../config/config");
 
 // 创建 OSS 客户端实例
 const ossClient = new OSS({
   region: "oss-cn-guangzhou",
-  accessKeyId: "LTAI5tJxBXj1AmoFvwpL47Ao",
-  accessKeySecret: "ceN4eE3xCV33zPcU2kYSq4OpoMBzi2",
-  bucket: "k-chat-test",
+  accessKeyId: ACCESSKEY_ID,
+  accessKeySecret: ACCESSKEY_SECRET,
+  bucket: BUCKET,
   timeout: 120000,
   retries: 3,
   authorizationV4: true,
