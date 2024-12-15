@@ -4,13 +4,6 @@ const { DataTypes } = require("sequelize");
 const seq = require("../db/seq");
 
 const Info = seq.define("infos", {
-  id: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-    primaryKey: true,
-    comment: "唯一id",
-  },
   imageUrl: {
     type: DataTypes.STRING,
     allowNull: false,

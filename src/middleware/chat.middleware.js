@@ -134,10 +134,8 @@ const sendMsg = async (ctx) => {
       success: true,
       data: result,
     };
-    console.log(ctx.request.body);
     logger.info("发送消息成功");
   } catch (error) {
-    console.log(ctx.request.body);
     logger.error("发送文本消息失败:", error);
     ctx.throw(500, error.message);
   }
@@ -159,10 +157,8 @@ const sendFile = async (ctx) => {
       success: true,
       data: result,
     };
-    console.log(ctx.request.body);
     logger.info("发送文件成功");
   } catch (error) {
-    console.log(ctx.request.body);
     logger.error("发送文件消息失败:", error);
     ctx.throw(500, error.message);
   }

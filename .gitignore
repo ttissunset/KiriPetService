@@ -3,6 +3,7 @@
 
 # 忽略 node_modules 目录
 node_modules/
+src/upload
 
 # 忽略编译生成的文件
 dist/
