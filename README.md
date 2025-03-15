@@ -2,8 +2,7 @@ KiriPet 后台服务
 
 ## 项目地址
 
-http://api.kirii.site（域名暂时撤下）
-http://101.126.150.33:3000/
+http://api.kirii.site
 
 ## 项目部署
 
